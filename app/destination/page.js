@@ -6,6 +6,7 @@ import styles from "@/components/destination/destination.module.css";
 import { AddWishlistItem } from "@/components/destination/AddWishlistItem";
 import PlanetWishlistItem from "./PlanetWishlistItem";
 import PlanetCard from "./PlanetCard";
+import { AddWishlistItem } from "@/components/destination/AddWishlistItem";
 
 <PlanetWishlistItem />;
 
@@ -58,30 +59,26 @@ export const Destinations = () => {
               ? "No planets in wishlist :("
               : `You have ${selectedPlanets.length} in your wishlist`}
           </p>
-          <b>List coming soon after lesson 3!</b>
 
-          {/* STOP! - this is for week 3!*/}
-          {/* TASK - React 1 week 3 */}
-          {/* Import the AddWishlistItem react component */}
-          {/* <AddWishlistItem /> */}
-          {/* TASK - React 1 week 3 */}
-          {/* Convert the list, so it is using selectedPlanets.map() to display the items  */}
-          {/* Implement the "REMOVE" function */}
-          {/* uncomment the following code snippet: */}
-          {/* 
+          <AddWishlistItem onAddWishlistItem={onAddPlanet} />
+
           <h3>Your current wishlist</h3>
           <div className={styles.wishlistList}>
-            <PlanetWishlistItem 
-              name="europa"
-              onRemove={() => removeFromWishlist('europa')}
-              thumbnail="/destination/image-europa.png"
-            />
-            <PlanetWishlistItem 
-              name="europa"
-              onRemove={() => removeFromWishlist('europa')}
-              thumbnail="/destination/image-europa.png"
-            />
-          </div> */}
+            {selectedPlanets.map((planetName, index) => {
+              const planet = planets.find((p) => p.name === planetName);
+              if (planet) {
+                return (
+                  <PlanetWishlistItem
+                    key={index}
+                    name={planet.name}
+                    thumbnail={planet.thumbnail}
+                    onRemove={() => removeFromWishlist(planet.name)}
+                  />
+                );
+              }
+              return null;
+            })}
+          </div>
         </section>
         <section className="card">
           <h2>Possible destinations</h2>
